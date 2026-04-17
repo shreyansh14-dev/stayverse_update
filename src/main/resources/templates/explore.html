@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore | StayVerse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
+        .fw-black { font-weight: 900; }
+        .nav-link.active { color: var(--bs-primary) !important; font-weight: 800; border-bottom: 3px solid var(--bs-primary); }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-black fs-3 text-primary" href="/">STAYVERSE</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto fw-bold">
+                    <li class="nav-item"><a class="nav-link text-primary" href="/explore">Explore</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/dashboard">My Trips</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="mb-5">
+            <h1 class="display-4 fw-black">Where to next?</h1>
+            <p class="lead text-secondary fw-bold">Find exclusive deals on hotels, flights, and luxury transport.</p>
+        </div>
+
+        <div class="card border-0 shadow-sm p-4 mb-5 rounded-4">
+            <form action="/search" method="get" class="row g-3">
+                <div class="col-md-5">
+                    <label class="form-label small fw-black text-uppercase text-muted">Destination</label>
+                    <input type="text" name="city" class="form-control form-control-lg border-0 bg-light px-4 py-3 rounded-3 fw-bold" placeholder="Where are you going?" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-black text-uppercase text-muted">Check-in</label>
+                    <input type="date" class="form-control form-control-lg border-0 bg-light px-4 py-3 rounded-3 fw-bold">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-black text-uppercase text-muted">Check-out</label>
+                    <input type="date" class="form-control form-control-lg border-0 bg-light px-4 py-3 rounded-3 fw-bold">
+                </div>
+                <div class="col-md-1 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary btn-lg w-100 py-3 rounded-3 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2001/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <h2 class="h4 fw-black mb-4">Recommended Destinations</h2>
+        <div class="row g-4">
+            <div th:each="dest : ${ {'Varanasi', 'Paris', 'Tokyo'} }" class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden position-relative" style="height: 350px;">
+                    <img th:src="${dest == 'Varanasi' ? 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc' : dest == 'Paris' ? 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34' : 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf'}" 
+                         class="w-100 h-100 object-fit-cover position-absolute" alt="Dest">
+                        <p th:text="${dest}" class="text-white h5 fw-black mb-0">City</p>
+                        <p class="text-white-50 small mb-0 fw-bold">Luxury stays starting from ₹3,125</p>
+                        <a th:href="'/search?city=' + ${dest}" class="btn btn-link text-white text-decoration-none p-0 small fw-bold mt-2 stretched-link">Explore Now &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

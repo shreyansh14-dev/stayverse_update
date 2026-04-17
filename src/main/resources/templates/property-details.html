@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${hotel.name} + ' | StayVerse'">Property Details | StayVerse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
+        .fw-black { font-weight: 900; }
+        .property-img { border-radius: 2rem; overflow: hidden; height: 500px; }
+        .sticky-card { position: sticky; top: 6rem; border-radius: 2rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-black fs-3 text-primary" href="/">STAYVERSE</a>
+            <div class="ms-auto">
+                <a href="/explore" class="btn btn-link text-decoration-none fw-bold">&larr; Back to Search</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5" th:if="${hotel != null}">
+        <div class="row mb-5 align-items-end">
+            <div class="col-md-8">
+                <h1 class="display-5 fw-black mb-2" th:text="${hotel.name}">Hotel Name</h1>
+                <p class="text-muted fs-5 fw-bold" th:text="${hotel.location} + ', ' + ${hotel.city}">Location</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <div class="badge bg-primary px-4 py-2 fs-4 rounded-pill" th:text="${hotel.rating} + ' / 5'">4.5 / 5</div>
+            </div>
+        </div>
+
+        <div class="property-img mb-5 shadow-lg">
+            <img th:src="${hotel.image}" class="w-100 h-100 object-fit-cover" th:alt="${hotel.name}">
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-8">
+                <div class="card border-0 shadow-sm p-5 rounded-4 mb-4">
+                    <h3 class="h4 fw-black mb-4 text-primary">About this property</h3>
+                    <p class="fs-5 text-secondary fw-semibold" style="line-height: 1.8;" th:text="${hotel.description}">Description</p>
+                </div>
+                
+                <div class="card border-0 shadow-sm p-5 rounded-4">
+                    <h3 class="h4 fw-black mb-4 text-primary">Luxury Amenities</h3>
+                    <div class="row g-4">
+                        <div class="col-md-6 fw-bold text-secondary d-flex align-items-center">
+                            <span class="bg-primary bg-opacity-10 text-primary p-2 rounded-circle me-3">✓</span> Free High-speed WiFi
+                        </div>
+                        <div class="col-md-6 fw-bold text-secondary d-flex align-items-center">
+                            <span class="bg-primary bg-opacity-10 text-primary p-2 rounded-circle me-3">✓</span> Breakfast Buffet
+                        </div>
+                        <div class="col-md-6 fw-bold text-secondary d-flex align-items-center">
+                            <span class="bg-primary bg-opacity-10 text-primary p-2 rounded-circle me-3">✓</span> 24/7 Room Service
+                        </div>
+                        <div class="col-md-6 fw-bold text-secondary d-flex align-items-center">
+                            <span class="bg-primary bg-opacity-10 text-primary p-2 rounded-circle me-3">✓</span> Fitness Center & Spa
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card sticky-card border-0 shadow-lg p-5">
+                    <h3 class="h4 fw-black mb-4">Reserve Now</h3>
+                    <div class="mb-4 pb-4 border-bottom">
+                        <div class="h1 fw-black text-primary mb-0" th:text="'₹' + ${#numbers.formatDecimal(hotel.price, 0, 'COMMA', 0, 'POINT')}">₹0</div>
+                        <p class="text-muted fw-bold">per night (inclusive of taxes)</p>
+                    </div>
+                    
+                    <div class="vstack gap-3 mb-4">
+                        <div class="d-flex justify-content-between fw-bold">
+                            <span class="text-muted">Stay duration</span>
+                            <span class="text-dark">3 Nights</span>
+                        </div>
+                        <div class="d-flex justify-content-between fw-bold">
+                            <span class="text-muted">Travelers</span>
+                            <span class="text-dark">2 Adults</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-lg w-100 fw-black py-4 rounded-pill shadow-lg" onclick="alert('Booking feature coming soon to Java backend!')">
+                        Confirm & Pay
+                    </button>
+                    
+                    <p class="text-center small text-muted mt-4 fw-bold">Secured by StayVerse Java System</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
