@@ -18,7 +18,8 @@ public class HotelController {
     @jakarta.annotation.PostConstruct
     public void reducePrices() {
         hotelRepository.findAll().forEach(h -> {
-            h.setPrice((int)(h.getPrice() * 0.25));
+            // FIXED: Cast to double to match Double target
+            h.setPrice((double) Math.round(h.getPrice() * 0.25));
             hotelRepository.save(h);
         });
         System.out.println("Global Price reduction of 75% applied.");
