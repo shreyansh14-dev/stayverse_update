@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: stayverse-app
+    runtime: docker
+    plan: free
+    region: ohio
+    envVars:
+      - key: SERVER_PORT
+        value: 5000
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:sqlite:/data/database.sqlite
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+    disk:
+      name: stayverse-data
+      mountPath: /data
+      sizeGB: 1
