@@ -1,11 +1,12 @@
 package com.stayverse.controller;
 
 import com.stayverse.model.Hotel;
-import com.stayverse.repository.HotelRepository;
+import com.stayverse.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/hotels")
@@ -13,30 +14,17 @@ import java.util.List;
 public class HotelController {
 
     @Autowired
-    private HotelRepository hotelRepository;
-
-    @jakarta.annotation.PostConstruct
-    public void reducePrices() {
-        hotelRepository.findAll().forEach(h -> {
-            // FIXED: Cast to double to match Double target
-            h.setPrice((double) Math.round(h.getPrice() * 0.25));
-            hotelRepository.save(h);
-        });
-        System.out.println("Global Price reduction of 75% applied.");
-    }
+    private HotelService hotelService;
 
     @GetMapping
     public List<Hotel> getAllHotels() {
-        return hotelRepository.findAll();
+        return hotelService.getAllHotels();
     }
 
-    @GetMapping("/search")
-    public List<Hotel> searchHotels(@RequestParam String city) {
-        return hotelRepository.findByCityIgnoreCase(city);
-    }
-    
-    @GetMapping("/{id}")
-    public Hotel getHotelById(@PathVariable Long id) {
-        return hotelRepository.findById(id).orElse(null);
+    @PostMapping("/ensure")
+    public List<Hotel> ensureHotels(@RequestBody Map<String, String> body) {
+        String city = body.get("city");
+        hotelService.ensureHotelsForCity(city);
+        return hotelService.getHotelsByCity(city);
     }
 }
