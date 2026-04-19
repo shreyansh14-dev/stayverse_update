@@ -28,7 +28,11 @@ public class BookingController {
     @PostMapping
     public Booking createBooking(@RequestBody Booking booking) {
         if (booking.getId() == null) {
-            booking.setId("STAY-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
+            String prefix = "STAY-";
+            if ("flight".equalsIgnoreCase(booking.getBookingType())) prefix = "FLIGHT-";
+            if ("car".equalsIgnoreCase(booking.getBookingType())) prefix = "CAR-";
+            
+            booking.setId(prefix + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
         }
         booking.setStatus("Confirmed");
         return bookingRepository.save(booking);

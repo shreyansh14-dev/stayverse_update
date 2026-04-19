@@ -10,7 +10,10 @@ public class Booking {
     @Id
     private String id; // STAY-XXXXXX
     
+    private String bookingType; // "hotel", "flight", "car"
     private Long hotelId;
+    private Long flightId;
+    private Long carId;
     private Long userId;
     private String checkIn;
     private String checkOut;
