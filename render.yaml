@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: stayverse-java-unified
+    runtime: docker
+    plan: free
+    region: ohio
+    envVars:
+      - key: SERVER_PORT
+        value: 5000
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:sqlite:/data/database.sqlite
+      - key: GEMINI_API_KEY
+        sync: false # Important: Enter your API key in the Render dashboard env vars
+    disk:
+      name: stayverse-sqlite-persist
+      mountPath: /data
+      sizeGB: 1
